@@ -11,21 +11,20 @@ import javax.mail.internet.MimeMessage;
 import main.core.Employee;
 import main.core.Greetings;
 
-public class SmtpMessageSender implements GreetingsSender {
+public class SmtpGreetingsSender implements GreetingsSender {
 
-	private int smtpPort;
-	private String smtpHost;
+	private final int smtpPort;
+	private final String smtpHost;
+	private final String SENDER = "sender@here.com";
 
-	public SmtpMessageSender(String smtpHost, int smtpPort) {
+	public SmtpGreetingsSender(String smtpHost, int smtpPort) {
 		this.smtpHost = smtpHost;
 		this.smtpPort = smtpPort;
 	}
 
 	public void sendGreetingsTo(Employee employee) throws AddressException,
 			MessagingException {
-
-		sendMessage(new Greetings(employee), "sender@here.com",
-				employee.getEmail());
+		sendMessage(new Greetings(employee), SENDER, employee.getEmail());
 	}
 
 	private void sendMessage(Greetings greetings, String sender,
@@ -36,7 +35,6 @@ public class SmtpMessageSender implements GreetingsSender {
 		Message msg = constructMessage(sender, greetings.getSubject(),
 				greetings.getMessage(), recipient, session);
 
-		// Send the message
 		sendMessage(msg);
 	}
 

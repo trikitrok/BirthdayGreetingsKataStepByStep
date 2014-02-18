@@ -1,8 +1,8 @@
 package main.core;
 
 public class Greetings {
-	private String subject;
-	private String message;
+	private final String subject;
+	private final String message;
 
 	public Greetings(Employee employee) {
 		this.subject = "Happy Birthday!";

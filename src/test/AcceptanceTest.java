@@ -7,7 +7,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 
 import main.application.BirthdayService;
-import main.application.SmtpMessageSender;
+import main.application.SmtpGreetingsSender;
 import main.core.OurDate;
 
 import org.junit.Before;
@@ -21,13 +21,13 @@ public class AcceptanceTest {
 	private static final int SMTP_PORT = 25;
 	private List<Message> messagesSent;
 	private BirthdayService service;
-	private SmtpMessageSender messageSender;
+	private SmtpGreetingsSender messageSender;
 
 	@Before
 	public void setUp() throws Exception {
 		messagesSent = new ArrayList<Message>();
 
-		messageSender = new SmtpMessageSender("localhost", SMTP_PORT) {
+		messageSender = new SmtpGreetingsSender("localhost", SMTP_PORT) {
 			@Override
 			protected void sendMessage(Message msg) throws MessagingException {
 				messagesSent.add(msg);
