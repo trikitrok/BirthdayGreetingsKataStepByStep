@@ -16,8 +16,9 @@ import main.core.OurDate;
 
 public class BirthdayService {
 
-	public BirthdayService(EmployeesRepository employeesRepository) {
+	public BirthdayService(EmployeesRepository employeesRepository, SmtpMessageSender messageSender) {
 		this.employeesRepository = employeesRepository;
+		this.messageSender = messageSender;
 	}
 
 	private EmployeesRepository employeesRepository;
@@ -38,12 +39,13 @@ public class BirthdayService {
 
 	private void sendGreetingsTo(Employee employee) throws AddressException,
 			MessagingException {
+		
+		String subject = "Happy Birthday!";
 		String greetingsMessage = "Happy Birthday, dear %NAME%!".replace(
 				"%NAME%", employee.getFirstName());
 
 		String recipient = employee.getEmail();
 
-		String subject = "Happy Birthday!";
 		sendMessage(this.messageSender.smtpHost, this.messageSender.smtpPort,
 				"sender@here.com", subject, greetingsMessage, recipient);
 	}
