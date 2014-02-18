@@ -17,29 +17,53 @@ public class FileEmployeesRepository implements EmployeesRepository {
 
 	public List<Employee> findEmployeesWhoseBirthdayIs(OurDate today) {
 
+		List<Employee> employees = getAllEmployees();
+
+		return filterEmployeesWhoseBirthdayIs(today, employees);
+	}
+
+	private List<Employee> filterEmployeesWhoseBirthdayIs(OurDate today,
+			List<Employee> employees) {
 		List<Employee> employeesWithBirthdayToday = new ArrayList<Employee>();
 
+		for (Employee employee : employees) {
+			if (employee.isBirthday(today)) {
+				employeesWithBirthdayToday.add(employee);
+			}
+		}
+		return employeesWithBirthdayToday;
+	}
+
+	private List<Employee> getAllEmployees() {
+		List<Employee> employees = new ArrayList<Employee>();
+
 		try {
-			BufferedReader in = new BufferedReader(
-					new FileReader(this.fileName));
+			BufferedReader employeesFileReader = createEmployeesFileReader();
 
-			String employeeRecord = in.readLine(); // skip header
+			String employeeRecord = employeesFileReader.readLine(); // skip
+																	// header
 
-			while ((employeeRecord = in.readLine()) != null) {
+			while ((employeeRecord = employeesFileReader.readLine()) != null) {
 				Employee employee = extractEmployeeFrom(employeeRecord);
 
-				if (employee.isBirthday(today)) {
-					employeesWithBirthdayToday.add(employee);
-				}
+				employees.add(employee);
 			}
-			in.close();
-		} catch (FileNotFoundException e) {
-			throw new EmployeesRepositoryNotAccessible();
+			employeesFileReader.close();
 		} catch (IOException e) {
 			throw new EmployeesRepositoryNotAccessible();
 		}
+		return employees;
+	}
 
-		return employeesWithBirthdayToday;
+	private BufferedReader createEmployeesFileReader()
+			throws FileNotFoundException {
+		FileReader fileReader;
+		try {
+			fileReader = new FileReader(this.fileName);
+		} catch (FileNotFoundException e) {
+			throw new EmployeesRepositoryNotAccessible();
+		}
+		return new BufferedReader(fileReader);
 	}
 
 	private Employee extractEmployeeFrom(String str)
