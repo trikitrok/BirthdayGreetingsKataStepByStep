@@ -21,6 +21,7 @@ public class BirthdayService {
 	}
 
 	private EmployeesRepository employeesRepository;
+	private SmtpMessageSender messageSender;
 
 	public void sendGreetings(OurDate ourDate, String smtpHost, int smtpPort)
 			throws AddressException, MessagingException {
@@ -41,11 +42,11 @@ public class BirthdayService {
 	private void sendMessage(String smtpHost, int smtpPort, String sender,
 			String subject, String body, String recipient)
 			throws AddressException, MessagingException {
+		
+		this.messageSender = new SmtpMessageSender(smtpHost, smtpPort);
+		
 		// Create a mail session
-		java.util.Properties props = new java.util.Properties();
-		props.put("mail.smtp.host", smtpHost);
-		props.put("mail.smtp.port", "" + smtpPort);
-		Session session = Session.getDefaultInstance(props, null);
+		Session session = createMailSession(smtpHost, smtpPort);
 
 		// Construct the message
 		Message msg = new MimeMessage(session);
@@ -57,6 +58,14 @@ public class BirthdayService {
 
 		// Send the message
 		sendMessage(msg);
+	}
+
+	private Session createMailSession(String smtpHost, int smtpPort) {
+		java.util.Properties props = new java.util.Properties();
+		props.put("mail.smtp.host", smtpHost);
+		props.put("mail.smtp.port", "" + smtpPort);
+		Session session = Session.getDefaultInstance(props, null);
+		return session;
 	}
 
 	// made protected for testing :-(
