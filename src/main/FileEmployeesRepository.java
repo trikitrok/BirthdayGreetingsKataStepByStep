@@ -15,8 +15,7 @@ public class FileEmployeesRepository implements EmployeesRepository {
 		this.fileName = fileName;
 	}
 
-	public List<Employee> findEmployeesWhoseBirthdayIs(OurDate today)
-			throws EmployeesRepositoryNotAccessible, EmployeeNotAccessible {
+	public List<Employee> findEmployeesWhoseBirthdayIs(OurDate today) {
 
 		List<Employee> employeesWithBirthdayToday = new ArrayList<Employee>();
 

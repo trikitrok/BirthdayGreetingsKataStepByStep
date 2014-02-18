@@ -19,8 +19,7 @@ public class BirthdayService {
 	private EmployeesRepository employeesRepository;
 
 	public void sendGreetings(OurDate ourDate, String smtpHost, int smtpPort)
-			throws EmployeesRepositoryNotAccessible, EmployeeNotAccessible,
-			AddressException, MessagingException {
+			throws AddressException, MessagingException {
 
 		List<Employee> employeesWithBirthdayToday = this.employeesRepository
 				.findEmployeesWhoseBirthdayIs(ourDate);
