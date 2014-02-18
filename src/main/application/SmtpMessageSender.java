@@ -23,21 +23,18 @@ public class SmtpMessageSender implements GreetingsSender {
 
 	public void sendGreetingsTo(Employee employee) throws AddressException,
 			MessagingException {
-		
-		Greetings greetings = new Greetings(employee);
 
-		String recipient = employee.getEmail();
-
-		sendMessage("sender@here.com", greetings.getSubject(), greetings.getMessage(), recipient);
+		sendMessage(new Greetings(employee), "sender@here.com",
+				employee.getEmail());
 	}
 
-	private void sendMessage(String sender, String subject, String body,
+	private void sendMessage(Greetings greetings, String sender,
 			String recipient) throws AddressException, MessagingException {
 
 		Session session = createMailSession();
 
-		Message msg = constructMessage(sender, subject, body, recipient,
-				session);
+		Message msg = constructMessage(sender, greetings.getSubject(),
+				greetings.getMessage(), recipient, session);
 
 		// Send the message
 		sendMessage(msg);
