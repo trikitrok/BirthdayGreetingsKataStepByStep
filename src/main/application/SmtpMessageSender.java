@@ -8,6 +8,8 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import main.core.Employee;
+
 public class SmtpMessageSender {
 
 	public int smtpPort;
@@ -17,10 +19,21 @@ public class SmtpMessageSender {
 		this.smtpHost = smtpHost;
 		this.smtpPort = smtpPort;
 	}
-	
-	public void sendMessage(String sender,
-			String subject, String body, String recipient)
-			throws AddressException, MessagingException {
+
+	public void sendGreetingsTo(Employee employee) throws AddressException,
+			MessagingException {
+
+		String subject = "Happy Birthday!";
+		String greetingsMessage = "Happy Birthday, dear %NAME%!".replace(
+				"%NAME%", employee.getFirstName());
+
+		String recipient = employee.getEmail();
+
+		sendMessage("sender@here.com", subject, greetingsMessage, recipient);
+	}
+
+	private void sendMessage(String sender, String subject, String body,
+			String recipient) throws AddressException, MessagingException {
 
 		Session session = createMailSession();
 
