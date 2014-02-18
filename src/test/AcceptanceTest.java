@@ -7,6 +7,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 
 import main.application.BirthdayService;
+import main.core.EmployeesRepository;
 import main.core.OurDate;
 
 import org.junit.Before;
@@ -19,23 +20,27 @@ import static org.junit.Assert.*;
 public class AcceptanceTest {
 
 	private static final int SMTP_PORT = 25;
+	private static final String SMTP_HOST = "localhost";
 	private List<Message> messagesSent;
 	private BirthdayService service;
 	private SmtpGreetingsSender messageSender;
+	private EmployeesRepository employeesRepository;
 
 	@Before
 	public void setUp() throws Exception {
 		messagesSent = new ArrayList<Message>();
 
-		messageSender = new SmtpGreetingsSender("localhost", SMTP_PORT) {
+		employeesRepository = new FileEmployeesRepository(
+				"src/test/resources/employee_data.txt");
+
+		messageSender = new SmtpGreetingsSender(SMTP_HOST, SMTP_PORT) {
 			@Override
 			protected void sendMessage(Message msg) throws MessagingException {
 				messagesSent.add(msg);
 			}
 		};
 
-		service = new BirthdayService(new FileEmployeesRepository(
-				"src/test/resources/employee_data.txt"), messageSender);
+		service = new BirthdayService(employeesRepository, messageSender);
 	}
 
 	@Test
