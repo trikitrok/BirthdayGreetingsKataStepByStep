@@ -10,7 +10,7 @@ import javax.mail.internet.MimeMessage;
 
 import main.core.Employee;
 
-public class SmtpMessageSender {
+public class SmtpMessageSender implements GreetingsSender {
 
 	public int smtpPort;
 	public String smtpHost;

@@ -16,13 +16,13 @@ import main.core.OurDate;
 
 public class BirthdayService {
 
-	public BirthdayService(EmployeesRepository employeesRepository, SmtpMessageSender messageSender) {
+	public BirthdayService(EmployeesRepository employeesRepository, GreetingsSender messageSender) {
 		this.employeesRepository = employeesRepository;
-		this.messageSender = messageSender;
+		this.greetingsSender = messageSender;
 	}
 
 	private EmployeesRepository employeesRepository;
-	private SmtpMessageSender messageSender;
+	private GreetingsSender greetingsSender;
 
 	public void sendGreetings(OurDate ourDate, String smtpHost, int smtpPort)
 			throws AddressException, MessagingException {
@@ -31,7 +31,7 @@ public class BirthdayService {
 				.findEmployeesWhoseBirthdayIs(ourDate);
 
 		for (Employee employee : employeesWithBirthdayToday) {
-			this.messageSender.sendGreetingsTo(employee);
+			this.greetingsSender.sendGreetingsTo(employee);
 		}
 	}
 }
