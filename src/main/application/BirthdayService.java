@@ -8,18 +8,18 @@ import main.core.OurDate;
 
 public class BirthdayService {
 
+	private final EmployeesRepository employeesRepository;
+	private final GreetingsSender greetingsSender;
+	
 	public BirthdayService(EmployeesRepository employeesRepository, GreetingsSender messageSender) {
 		this.employeesRepository = employeesRepository;
 		this.greetingsSender = messageSender;
 	}
 
-	private EmployeesRepository employeesRepository;
-	private GreetingsSender greetingsSender;
-
-	public void sendGreetings(OurDate ourDate, String smtpHost, int smtpPort) {
+	public void sendGreetings(OurDate today, String smtpHost, int smtpPort) {
 		
 		List<Employee> employeesWithBirthdayToday = this.employeesRepository
-				.findEmployeesWhoseBirthdayIs(ourDate);
+				.findEmployeesWhoseBirthdayIs(today);
 
 		for (Employee employee : employeesWithBirthdayToday) {
 			this.greetingsSender.sendGreetingsTo(employee);
