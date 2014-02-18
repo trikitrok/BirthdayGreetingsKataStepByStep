@@ -26,8 +26,6 @@ public class BirthdayService {
 
 	public void sendGreetings(OurDate ourDate, String smtpHost, int smtpPort)
 			throws AddressException, MessagingException {
-
-		this.messageSender = new SmtpMessageSender(smtpHost, smtpPort);
 		
 		List<Employee> employeesWithBirthdayToday = this.employeesRepository
 				.findEmployeesWhoseBirthdayIs(ourDate);
@@ -45,42 +43,9 @@ public class BirthdayService {
 				"%NAME%", employee.getFirstName());
 
 		String recipient = employee.getEmail();
-
-		sendMessage(this.messageSender.smtpHost, this.messageSender.smtpPort,
-				"sender@here.com", subject, greetingsMessage, recipient);
-	}
-
-	private void sendMessage(String smtpHost, int smtpPort, String sender,
-			String subject, String body, String recipient)
-			throws AddressException, MessagingException {
-
-		Session session = createMailSession(smtpHost, smtpPort);
-
-		Message msg = constructMessage(sender, subject, body, recipient,
-				session);
-
-		// Send the message
-		sendMessage(msg);
-	}
-
-	private Message constructMessage(String sender, String subject,
-			String body, String recipient, Session session)
-			throws MessagingException, AddressException {
-		Message msg = new MimeMessage(session);
-		msg.setFrom(new InternetAddress(sender));
-		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(
-				recipient));
-		msg.setSubject(subject);
-		msg.setText(body);
-		return msg;
-	}
-
-	private Session createMailSession(String smtpHost, int smtpPort) {
-		java.util.Properties props = new java.util.Properties();
-		props.put("mail.smtp.host", smtpHost);
-		props.put("mail.smtp.port", "" + smtpPort);
-		Session session = Session.getDefaultInstance(props, null);
-		return session;
+		
+		this.messageSender.sendMessage("sender@here.com",
+				subject, greetingsMessage, recipient);
 	}
 
 	// made protected for testing :-(

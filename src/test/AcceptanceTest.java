@@ -21,13 +21,21 @@ public class AcceptanceTest {
 	private static final int SMTP_PORT = 25;
 	private List<Message> messagesSent;
 	private BirthdayService service;
+	private SmtpMessageSender messageSender;
 
 	@Before
 	public void setUp() throws Exception {
 		messagesSent = new ArrayList<Message>();
 
+		messageSender = new SmtpMessageSender("localhost", SMTP_PORT) {
+			@Override
+			protected void sendMessage(Message msg) throws MessagingException {
+				messagesSent.add(msg);
+			}
+		};
+
 		service = new BirthdayService(new FileEmployeesRepository(
-				"src/test/resources/employee_data.txt"), new SmtpMessageSender("localhost", SMTP_PORT)) {
+				"src/test/resources/employee_data.txt"), messageSender) {
 			@Override
 			protected void sendMessage(Message msg) throws MessagingException {
 				messagesSent.add(msg);
