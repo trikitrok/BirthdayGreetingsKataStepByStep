@@ -35,12 +35,7 @@ public class AcceptanceTest {
 		};
 
 		service = new BirthdayService(new FileEmployeesRepository(
-				"src/test/resources/employee_data.txt"), messageSender) {
-			@Override
-			protected void sendMessage(Message msg) throws MessagingException {
-				messagesSent.add(msg);
-			}
-		};
+				"src/test/resources/employee_data.txt"), messageSender);
 	}
 
 	@Test

@@ -47,9 +47,4 @@ public class BirthdayService {
 		this.messageSender.sendMessage("sender@here.com",
 				subject, greetingsMessage, recipient);
 	}
-
-	// made protected for testing :-(
-	protected void sendMessage(Message msg) throws MessagingException {
-		Transport.send(msg);
-	}
 }
