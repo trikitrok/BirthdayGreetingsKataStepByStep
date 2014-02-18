@@ -1,6 +1,7 @@
 package main;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
@@ -21,20 +22,8 @@ public class BirthdayService {
             String smtpHost, int smtpPort) throws IOException, ParseException,
             AddressException, MessagingException {
     	
-    	List<Employee> employeesWithBirthdayToday = new ArrayList<Employee>();
-    	
-        BufferedReader in = new BufferedReader(new FileReader(fileName));
-        String str = "";
-        str = in.readLine(); // skip header
-        while ((str = in.readLine()) != null) {
-            String[] employeeData = str.split(", ");
-            Employee employee = new Employee(employeeData[1], employeeData[0],
-                    employeeData[2], employeeData[3]);
-            if (employee.isBirthday(ourDate)) {
-            	employeesWithBirthdayToday.add(employee);
-            }
-        }
-        in.close();
+    	List<Employee> employeesWithBirthdayToday = findEmployeesWhoseBirthdayIs(
+				ourDate, fileName);
         
         for(Employee employee : employeesWithBirthdayToday) {
         	String recipient = employee.getEmail();
@@ -45,6 +34,26 @@ public class BirthdayService {
                     body, recipient);
         }
     }
+
+	private List<Employee> findEmployeesWhoseBirthdayIs(OurDate today,
+			String fileName) throws FileNotFoundException, IOException,
+			ParseException {
+		List<Employee> employeesWithBirthdayToday = new ArrayList<Employee>();
+    	
+        BufferedReader in = new BufferedReader(new FileReader(fileName));
+        String str = "";
+        str = in.readLine(); // skip header
+        while ((str = in.readLine()) != null) {
+            String[] employeeData = str.split(", ");
+            Employee employee = new Employee(employeeData[1], employeeData[0],
+                    employeeData[2], employeeData[3]);
+            if (employee.isBirthday(today)) {
+            	employeesWithBirthdayToday.add(employee);
+            }
+        }
+        in.close();
+		return employeesWithBirthdayToday;
+	}
 
     private void sendMessage(String smtpHost, int smtpPort, String sender,
             String subject, String body, String recipient)
