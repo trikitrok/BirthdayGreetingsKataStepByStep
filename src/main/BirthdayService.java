@@ -17,8 +17,10 @@ public class BirthdayService {
 			throws EmployeesRepositoryNotAccessible, EmployeeNotAccessible,
 			AddressException, MessagingException {
 
-		List<Employee> employeesWithBirthdayToday = new FileEmployeesRepository(
-				fileName).findEmployeesWhoseBirthdayIs(ourDate);
+		EmployeesRepository employeesRepository = new FileEmployeesRepository(
+				fileName);
+
+		List<Employee> employeesWithBirthdayToday = employeesRepository.findEmployeesWhoseBirthdayIs(ourDate);
 
 		for (Employee employee : employeesWithBirthdayToday) {
 			String recipient = employee.getEmail();
