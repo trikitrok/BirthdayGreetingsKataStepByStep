@@ -18,46 +18,46 @@ import javax.mail.internet.MimeMessage;
 
 public class BirthdayService {
 
-    public void sendGreetings(String fileName, OurDate ourDate,
-            String smtpHost, int smtpPort) throws IOException, ParseException,
-            AddressException, MessagingException {
-    	
-    	List<Employee> employeesWithBirthdayToday = new FileEmployeeRepository().findEmployeesWhoseBirthdayIs(
-				ourDate, fileName);
-        
-        for(Employee employee : employeesWithBirthdayToday) {
-        	String recipient = employee.getEmail();
-            String body = "Happy Birthday, dear %NAME%!".replace("%NAME%",
-                    employee.getFirstName());
-            String subject = "Happy Birthday!";
-            sendMessage(smtpHost, smtpPort, "sender@here.com", subject,
-                    body, recipient);
-        }
-    }
+	public void sendGreetings(String fileName, OurDate ourDate,
+			String smtpHost, int smtpPort) throws IOException, ParseException,
+			AddressException, MessagingException {
 
-    private void sendMessage(String smtpHost, int smtpPort, String sender,
-            String subject, String body, String recipient)
-            throws AddressException, MessagingException {
-        // Create a mail session
-        java.util.Properties props = new java.util.Properties();
-        props.put("mail.smtp.host", smtpHost);
-        props.put("mail.smtp.port", "" + smtpPort);
-        Session session = Session.getDefaultInstance(props, null);
+		List<Employee> employeesWithBirthdayToday = new FileEmployeeRepository(
+				fileName).findEmployeesWhoseBirthdayIs(ourDate);
 
-        // Construct the message
-        Message msg = new MimeMessage(session);
-        msg.setFrom(new InternetAddress(sender));
-        msg.setRecipient(Message.RecipientType.TO, new InternetAddress(
-                recipient));
-        msg.setSubject(subject);
-        msg.setText(body);
+		for (Employee employee : employeesWithBirthdayToday) {
+			String recipient = employee.getEmail();
+			String body = "Happy Birthday, dear %NAME%!".replace("%NAME%",
+					employee.getFirstName());
+			String subject = "Happy Birthday!";
+			sendMessage(smtpHost, smtpPort, "sender@here.com", subject, body,
+					recipient);
+		}
+	}
 
-        // Send the message
-        sendMessage(msg);
-    }
+	private void sendMessage(String smtpHost, int smtpPort, String sender,
+			String subject, String body, String recipient)
+			throws AddressException, MessagingException {
+		// Create a mail session
+		java.util.Properties props = new java.util.Properties();
+		props.put("mail.smtp.host", smtpHost);
+		props.put("mail.smtp.port", "" + smtpPort);
+		Session session = Session.getDefaultInstance(props, null);
 
-    // made protected for testing :-(
-    protected void sendMessage(Message msg) throws MessagingException {
-        Transport.send(msg);
-    }
+		// Construct the message
+		Message msg = new MimeMessage(session);
+		msg.setFrom(new InternetAddress(sender));
+		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(
+				recipient));
+		msg.setSubject(subject);
+		msg.setText(body);
+
+		// Send the message
+		sendMessage(msg);
+	}
+
+	// made protected for testing :-(
+	protected void sendMessage(Message msg) throws MessagingException {
+		Transport.send(msg);
+	}
 }

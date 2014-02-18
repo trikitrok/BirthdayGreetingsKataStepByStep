@@ -9,12 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FileEmployeeRepository {
-	public List<Employee> findEmployeesWhoseBirthdayIs(OurDate today,
-			String fileName) throws FileNotFoundException, IOException,
+	private String fileName;
+
+	public FileEmployeeRepository(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public List<Employee> findEmployeesWhoseBirthdayIs(OurDate today) throws FileNotFoundException, IOException,
 			ParseException {
 		List<Employee> employeesWithBirthdayToday = new ArrayList<Employee>();
     	
-        BufferedReader in = new BufferedReader(new FileReader(fileName));
+        BufferedReader in = new BufferedReader(new FileReader(this.fileName));
         String str = "";
         str = in.readLine(); // skip header
         while ((str = in.readLine()) != null) {
