@@ -9,6 +9,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import main.core.Employee;
+import main.core.Greetings;
 
 public class SmtpMessageSender implements GreetingsSender {
 
@@ -22,14 +23,12 @@ public class SmtpMessageSender implements GreetingsSender {
 
 	public void sendGreetingsTo(Employee employee) throws AddressException,
 			MessagingException {
-
-		String subject = "Happy Birthday!";
-		String greetingsMessage = "Happy Birthday, dear %NAME%!".replace(
-				"%NAME%", employee.getFirstName());
+		
+		Greetings greetings = new Greetings(employee);
 
 		String recipient = employee.getEmail();
 
-		sendMessage("sender@here.com", subject, greetingsMessage, recipient);
+		sendMessage("sender@here.com", greetings.getSubject(), greetings.getMessage(), recipient);
 	}
 
 	private void sendMessage(String sender, String subject, String body,
