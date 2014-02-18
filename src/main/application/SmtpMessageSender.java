@@ -12,8 +12,8 @@ import main.core.Employee;
 
 public class SmtpMessageSender implements GreetingsSender {
 
-	public int smtpPort;
-	public String smtpHost;
+	private int smtpPort;
+	private String smtpHost;
 
 	public SmtpMessageSender(String smtpHost, int smtpPort) {
 		this.smtpHost = smtpHost;
