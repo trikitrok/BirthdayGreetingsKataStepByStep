@@ -19,7 +19,8 @@ import javax.mail.internet.MimeMessage;
 public class BirthdayService {
 
 	public void sendGreetings(String fileName, OurDate ourDate,
-			String smtpHost, int smtpPort) throws IOException, ParseException,
+			String smtpHost, int smtpPort)
+			throws EmployeesRepositoryNotAccessible, EmployeeNotAccessible,
 			AddressException, MessagingException {
 
 		List<Employee> employeesWithBirthdayToday = new FileEmployeeRepository(
