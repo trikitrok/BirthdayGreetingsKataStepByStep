@@ -12,13 +12,10 @@ import javax.mail.internet.MimeMessage;
 
 public class BirthdayService {
 
-	public void sendGreetings(String fileName, OurDate ourDate,
+	public void sendGreetings(EmployeesRepository employeesRepository, OurDate ourDate,
 			String smtpHost, int smtpPort)
 			throws EmployeesRepositoryNotAccessible, EmployeeNotAccessible,
 			AddressException, MessagingException {
-
-		EmployeesRepository employeesRepository = new FileEmployeesRepository(
-				fileName);
 
 		List<Employee> employeesWithBirthdayToday = employeesRepository.findEmployeesWhoseBirthdayIs(ourDate);
 

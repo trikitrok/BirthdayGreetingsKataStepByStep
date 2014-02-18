@@ -7,6 +7,7 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 
 import main.BirthdayService;
+import main.FileEmployeesRepository;
 import main.OurDate;
 
 import org.junit.Before;
@@ -35,7 +36,7 @@ public class AcceptanceTest {
     @Test
     public void baseScenario() throws Exception {
 
-        service.sendGreetings("src/test/resources/employee_data.txt",
+        service.sendGreetings(new FileEmployeesRepository("src/test/resources/employee_data.txt"),
                 new OurDate("2008/10/08"), "localhost", SMTP_PORT);
 
         assertEquals("message not sent?", 1, messagesSent.size());
@@ -49,7 +50,7 @@ public class AcceptanceTest {
 
     @Test
     public void willNotSendEmailsWhenNobodysBirthday() throws Exception {
-        service.sendGreetings("src/test/resources/employee_data.txt",
+        service.sendGreetings(new FileEmployeesRepository("src/test/resources/employee_data.txt"),
                 new OurDate("2008/01/01"), "localhost", SMTP_PORT);
 
         assertEquals("what? messages?", 0, messagesSent.size());
