@@ -26,25 +26,32 @@ public class BirthdayService {
 	public void sendGreetings(OurDate ourDate, String smtpHost, int smtpPort)
 			throws AddressException, MessagingException {
 
+		this.messageSender = new SmtpMessageSender(smtpHost, smtpPort);
+		
 		List<Employee> employeesWithBirthdayToday = this.employeesRepository
 				.findEmployeesWhoseBirthdayIs(ourDate);
 
 		for (Employee employee : employeesWithBirthdayToday) {
-			String recipient = employee.getEmail();
-			String body = "Happy Birthday, dear %NAME%!".replace("%NAME%",
-					employee.getFirstName());
-			String subject = "Happy Birthday!";
-			sendMessage(smtpHost, smtpPort, "sender@here.com", subject, body,
-					recipient);
+			sendGreetingsTo(employee);
 		}
+	}
+
+	private void sendGreetingsTo(Employee employee) throws AddressException,
+			MessagingException {
+		String greetingsMessage = "Happy Birthday, dear %NAME%!".replace(
+				"%NAME%", employee.getFirstName());
+
+		String recipient = employee.getEmail();
+
+		String subject = "Happy Birthday!";
+		sendMessage(this.messageSender.smtpHost, this.messageSender.smtpPort,
+				"sender@here.com", subject, greetingsMessage, recipient);
 	}
 
 	private void sendMessage(String smtpHost, int smtpPort, String sender,
 			String subject, String body, String recipient)
 			throws AddressException, MessagingException {
-		
-		this.messageSender = new SmtpMessageSender(smtpHost, smtpPort);
-		
+
 		Session session = createMailSession(smtpHost, smtpPort);
 
 		Message msg = constructMessage(sender, subject, body, recipient,
