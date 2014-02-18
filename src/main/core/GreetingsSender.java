@@ -1,6 +1,5 @@
-package main.application;
+package main.core;
 
-import main.core.Employee;
 
 public interface GreetingsSender {
 	public void sendGreetingsTo(Employee employee);

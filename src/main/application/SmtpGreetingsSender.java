@@ -10,6 +10,8 @@ import javax.mail.internet.MimeMessage;
 
 import main.core.Employee;
 import main.core.Greetings;
+import main.core.GreetingsNotSent;
+import main.core.GreetingsSender;
 
 public class SmtpGreetingsSender implements GreetingsSender {
 
