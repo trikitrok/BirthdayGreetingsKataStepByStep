@@ -4,12 +4,11 @@ public class Greetings {
 	private final String subject;
 	private final String message;
 
-	public Greetings(Employee employee) {
-		this.subject = "Happy Birthday!";
-		this.message = "Happy Birthday, dear %NAME%!".replace(
-				"%NAME%", employee.getFirstName());
+	public Greetings(String subject, String message) {
+		this.subject = subject;
+		this.message = message;
 	}
-
+	
 	public String getSubject() {
 		return subject;
 	}
