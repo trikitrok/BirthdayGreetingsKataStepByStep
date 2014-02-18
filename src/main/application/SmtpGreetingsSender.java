@@ -22,20 +22,24 @@ public class SmtpGreetingsSender implements GreetingsSender {
 		this.smtpPort = smtpPort;
 	}
 
-	public void sendGreetingsTo(Employee employee) throws AddressException,
-			MessagingException {
+	public void sendGreetingsTo(Employee employee) {
 		sendMessage(new Greetings(employee), SENDER, employee.getEmail());
 	}
 
 	private void sendMessage(Greetings greetings, String sender,
-			String recipient) throws AddressException, MessagingException {
+			String recipient) {
 
 		Session session = createMailSession();
+		try {
+			Message msg = constructMessage(sender, greetings.getSubject(),
+					greetings.getMessage(), recipient, session);
 
-		Message msg = constructMessage(sender, greetings.getSubject(),
-				greetings.getMessage(), recipient, session);
-
-		sendMessage(msg);
+			sendMessage(msg);
+		} catch (AddressException e) {
+			throw new GreetingsNotSent();
+		} catch (MessagingException e) {
+			throw new GreetingsNotSent();
+		}
 	}
 
 	private Message constructMessage(String sender, String subject,

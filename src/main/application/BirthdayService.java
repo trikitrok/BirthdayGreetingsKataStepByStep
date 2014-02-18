@@ -2,9 +2,6 @@ package main.application;
 
 import java.util.List;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-
 import main.core.Employee;
 import main.core.EmployeesRepository;
 import main.core.OurDate;
@@ -19,8 +16,7 @@ public class BirthdayService {
 	private EmployeesRepository employeesRepository;
 	private GreetingsSender greetingsSender;
 
-	public void sendGreetings(OurDate ourDate, String smtpHost, int smtpPort)
-			throws AddressException, MessagingException {
+	public void sendGreetings(OurDate ourDate, String smtpHost, int smtpPort) {
 		
 		List<Employee> employeesWithBirthdayToday = this.employeesRepository
 				.findEmployeesWhoseBirthdayIs(ourDate);
