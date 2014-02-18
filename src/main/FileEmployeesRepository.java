@@ -8,10 +8,10 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FileEmployeeRepository {
+public class FileEmployeesRepository {
 	private String fileName;
 
-	public FileEmployeeRepository(String fileName) {
+	public FileEmployeesRepository(String fileName) {
 		this.fileName = fileName;
 	}
 

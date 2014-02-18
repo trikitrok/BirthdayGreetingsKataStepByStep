@@ -23,7 +23,7 @@ public class BirthdayService {
 			throws EmployeesRepositoryNotAccessible, EmployeeNotAccessible,
 			AddressException, MessagingException {
 
-		List<Employee> employeesWithBirthdayToday = new FileEmployeeRepository(
+		List<Employee> employeesWithBirthdayToday = new FileEmployeesRepository(
 				fileName).findEmployeesWhoseBirthdayIs(ourDate);
 
 		for (Employee employee : employeesWithBirthdayToday) {
