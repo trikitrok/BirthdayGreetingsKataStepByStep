@@ -12,12 +12,18 @@ import javax.mail.internet.MimeMessage;
 
 public class BirthdayService {
 
-	public void sendGreetings(EmployeesRepository employeesRepository, OurDate ourDate,
-			String smtpHost, int smtpPort)
+	public BirthdayService(EmployeesRepository employeesRepository) {
+		this.employeesRepository = employeesRepository;
+	}
+
+	private EmployeesRepository employeesRepository;
+
+	public void sendGreetings(OurDate ourDate, String smtpHost, int smtpPort)
 			throws EmployeesRepositoryNotAccessible, EmployeeNotAccessible,
 			AddressException, MessagingException {
 
-		List<Employee> employeesWithBirthdayToday = employeesRepository.findEmployeesWhoseBirthdayIs(ourDate);
+		List<Employee> employeesWithBirthdayToday = this.employeesRepository
+				.findEmployeesWhoseBirthdayIs(ourDate);
 
 		for (Employee employee : employeesWithBirthdayToday) {
 			String recipient = employee.getEmail();
