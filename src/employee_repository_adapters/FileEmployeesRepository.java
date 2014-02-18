@@ -1,4 +1,4 @@
-package main;
+package employee_repository_adapters;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -7,6 +7,12 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+
+import main.core.Employee;
+import main.core.EmployeeNotAccessible;
+import main.core.EmployeesRepository;
+import main.core.EmployeesRepositoryNotAccessible;
+import main.core.OurDate;
 
 public class FileEmployeesRepository implements EmployeesRepository {
 	private String fileName;

@@ -1,9 +1,8 @@
 package test;
 
 import static org.junit.Assert.*;
-
-import main.Employee;
-import main.OurDate;
+import main.core.Employee;
+import main.core.OurDate;
 
 import org.junit.Test;
 

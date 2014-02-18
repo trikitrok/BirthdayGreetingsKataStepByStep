@@ -1,4 +1,4 @@
-package main;
+package main.application;
 
 import java.util.List;
 
@@ -9,6 +9,10 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+
+import main.core.Employee;
+import main.core.EmployeesRepository;
+import main.core.OurDate;
 
 public class BirthdayService {
 
