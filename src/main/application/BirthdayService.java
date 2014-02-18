@@ -45,19 +45,25 @@ public class BirthdayService {
 		
 		this.messageSender = new SmtpMessageSender(smtpHost, smtpPort);
 		
-		// Create a mail session
 		Session session = createMailSession(smtpHost, smtpPort);
 
-		// Construct the message
+		Message msg = constructMessage(sender, subject, body, recipient,
+				session);
+
+		// Send the message
+		sendMessage(msg);
+	}
+
+	private Message constructMessage(String sender, String subject,
+			String body, String recipient, Session session)
+			throws MessagingException, AddressException {
 		Message msg = new MimeMessage(session);
 		msg.setFrom(new InternetAddress(sender));
 		msg.setRecipient(Message.RecipientType.TO, new InternetAddress(
 				recipient));
 		msg.setSubject(subject);
 		msg.setText(body);
-
-		// Send the message
-		sendMessage(msg);
+		return msg;
 	}
 
 	private Session createMailSession(String smtpHost, int smtpPort) {
