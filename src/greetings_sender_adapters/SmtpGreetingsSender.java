@@ -1,4 +1,4 @@
-package main.application;
+package greetings_sender_adapters;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;

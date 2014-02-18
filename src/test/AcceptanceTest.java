@@ -7,13 +7,13 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 
 import main.application.BirthdayService;
-import main.application.SmtpGreetingsSender;
 import main.core.OurDate;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import employee_repository_adapters.FileEmployeesRepository;
+import greetings_sender_adapters.SmtpGreetingsSender;
 import static org.junit.Assert.*;
 
 public class AcceptanceTest {
