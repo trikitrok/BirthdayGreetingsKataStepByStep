@@ -17,7 +17,7 @@ public class BirthdayService {
 		this.greetingsSender = messageSender;
 	}
 
-	public void sendGreetings(OurDate today, String smtpHost, int smtpPort) {
+	public void sendGreetings(OurDate today) {
 		
 		List<Employee> employeesWithBirthdayToday = this.employeesRepository
 				.findEmployeesWhoseBirthdayIs(today);
