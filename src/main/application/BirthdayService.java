@@ -4,6 +4,7 @@ import java.util.List;
 
 import main.core.Employee;
 import main.core.EmployeesRepository;
+import main.core.Greetings;
 import main.core.GreetingsSender;
 import main.core.OurDate;
 
@@ -23,7 +24,7 @@ public class BirthdayService {
 				.findEmployeesWhoseBirthdayIs(today);
 
 		for (Employee employee : employeesWithBirthdayToday) {
-			this.greetingsSender.sendGreetingsTo(employee);
+			this.greetingsSender.send(employee, new Greetings(employee));
 		}
 	}
 }

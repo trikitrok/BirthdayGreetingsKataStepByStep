@@ -24,8 +24,8 @@ public class SmtpGreetingsSender implements GreetingsSender {
 		this.smtpPort = smtpPort;
 	}
 
-	public void sendGreetingsTo(Employee employee) {
-		sendMessage(new Greetings(employee), SENDER, employee.getEmail());
+	public void send(Employee employee, Greetings greetinsgs) {
+		sendMessage(greetinsgs, SENDER, employee.getEmail());
 	}
 
 	private void sendMessage(Greetings greetings, String sender,
