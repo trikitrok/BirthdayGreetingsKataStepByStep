@@ -1,4 +1,9 @@
-bin
-.settings
 .classpath
 .project
+*.class
+.settings/
+bin/
+target
+.idea
+*.iml
+out/
