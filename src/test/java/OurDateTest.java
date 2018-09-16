@@ -1,7 +1,7 @@
 package test;
 
 import static org.junit.Assert.*;
-import main.core.OurDate;
+import core.OurDate;
 
 import org.junit.Test;
 

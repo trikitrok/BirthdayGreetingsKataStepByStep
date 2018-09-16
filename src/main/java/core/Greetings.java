@@ -1,4 +1,4 @@
-package main.core;
+package core;
 
 public class Greetings {
 	private final String subject;

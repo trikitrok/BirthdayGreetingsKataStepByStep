@@ -1,4 +1,4 @@
-package main.core;
+package core;
 
 public class GreetingsFor {
 
@@ -18,7 +18,7 @@ public class GreetingsFor {
 		return this;
 	}
 
-	public Greetings create() {
+	public Greetings build() {
 		return new Greetings(subject, message);
 	}
 }

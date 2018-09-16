@@ -1,18 +1,17 @@
-package test;
 
 import static org.junit.Assert.*;
-import main.core.Employee;
-import main.core.OurDate;
 
+import core.Employee;
+import core.OurDate;
 import org.junit.Test;
 
 public class EmployeeTest {
 
     @Test
     public void testBirthday() throws Exception {
-        Employee employee = new Employee("foo", "bar", "1990/01/31", "a@b.c");
+        Employee employee = new core.Employee("foo", "bar", "1990/01/31", "a@b.c");
         assertFalse("not his birthday",
-                employee.isBirthday(new OurDate("2008/01/30")));
+                employee.isBirthday(new core.OurDate("2008/01/30")));
         assertTrue("his birthday",
                 employee.isBirthday(new OurDate("2008/01/31")));
     }

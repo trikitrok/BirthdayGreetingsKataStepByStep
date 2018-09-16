@@ -6,9 +6,9 @@ import java.util.List;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 
-import main.application.BirthdayService;
-import main.core.EmployeesRepository;
-import main.core.OurDate;
+import application.BirthdayService;
+import core.EmployeesRepository;
+import core.OurDate;
 
 import org.junit.Before;
 import org.junit.Test;

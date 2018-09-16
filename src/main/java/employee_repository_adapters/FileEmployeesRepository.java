@@ -8,11 +8,11 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.core.Employee;
-import main.core.EmployeeNotAccessible;
-import main.core.EmployeesRepository;
-import main.core.EmployeesRepositoryNotAccessible;
-import main.core.OurDate;
+import core.Employee;
+import core.EmployeeDataNotAccessible;
+import core.EmployeesRepository;
+import core.EmployeesRepositoryNotAccessible;
+import core.OurDate;
 
 public class FileEmployeesRepository implements EmployeesRepository {
 	private String fileName;
@@ -73,14 +73,14 @@ public class FileEmployeesRepository implements EmployeesRepository {
 	}
 
 	private Employee extractEmployeeFrom(String str)
-			throws EmployeeNotAccessible {
+			throws EmployeeDataNotAccessible {
 		try {
 			String[] employeeData = str.split(", ");
 			Employee employee = new Employee(employeeData[1], employeeData[0],
 					employeeData[2], employeeData[3]);
 			return employee;
 		} catch (ParseException e) {
-			throw new EmployeeNotAccessible();
+			throw new EmployeeDataNotAccessible();
 		}
 	}
 }

@@ -8,10 +8,10 @@ import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-import main.core.Employee;
-import main.core.Greetings;
-import main.core.GreetingsNotSent;
-import main.core.GreetingsSender;
+import core.Employee;
+import core.Greetings;
+import core.GreetingsNotSent;
+import core.GreetingsSender;
 
 public class SmtpGreetingsSender implements GreetingsSender {
 

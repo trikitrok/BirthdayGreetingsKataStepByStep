@@ -1,12 +1,12 @@
-package main.application;
+package application;
 
 import java.util.List;
 
-import main.core.Employee;
-import main.core.EmployeesRepository;
-import main.core.GreetingsFor;
-import main.core.GreetingsSender;
-import main.core.OurDate;
+import core.Employee;
+import core.EmployeesRepository;
+import core.GreetingsFor;
+import core.GreetingsSender;
+import core.OurDate;
 
 public class BirthdayService {
 
@@ -24,7 +24,7 @@ public class BirthdayService {
 				.findEmployeesWhoseBirthdayIs(today);
 
 		for (Employee employee : employeesWithBirthdayToday) {
-			this.greetingsSender.send(employee, new GreetingsFor(employee).birthday().create());
+			this.greetingsSender.send(employee, new GreetingsFor(employee).birthday().build());
 		}
 	}
 }
